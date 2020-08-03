@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="GradleLocalSettings">
+    <option name="projectSyncType">
+      <map>
+        <entry key="$USER_HOME$/Downloads/gateway" value="PREVIEW" />
+        <entry key="$USER_HOME$/workspace/apigateway" value="PREVIEW" />
+        <entry key="$USER_HOME$/workspace/demo" value="PREVIEW" />
+        <entry key="$USER_HOME$/workspace/gateway" value="PREVIEW" />
+        <entry key="$USER_HOME$/workspace/iron" value="PREVIEW" />
+      </map>
+    </option>
+  </component>
+</project>
