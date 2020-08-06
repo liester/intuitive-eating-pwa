@@ -25,6 +25,7 @@ import history from './history'
 import MealHistory from "./MealHistory";
 import MealEntry from "./MealEntry";
 import Home from "./Home"
+import SignUp from "./SignUp";
 
 const drawerWidth = 240;
 
@@ -144,6 +145,9 @@ function ResponsiveDrawer(props) {
                     <Switch>
                         <Route exact={true} path="/">
                             <Home/>
+                        </Route>
+                        <Route exact={true} path="/signup">
+                            <SignUp/>
                         </Route>
                         <Route exact={true} path="/meal-history">
                             <MealHistory/>
