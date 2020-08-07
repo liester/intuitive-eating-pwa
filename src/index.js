@@ -5,19 +5,13 @@ import * as serviceWorker from './serviceWorker';
 
 import './base-style.css'
 import SignUp from "./SignUp";
-import ResponsiveDrawer from "./ResponsiveDrawer";
 import App from "./App";
 
 const user = {}
 
 ReactDOM.render(
     <React.StrictMode>
-        {user?
-            <ResponsiveDrawer>
-                <App/>
-            </ResponsiveDrawer>
-            :
-            <SignUp/> }
+        {user?<App/>:<SignUp/> }
     </React.StrictMode>,
     document.getElementById('root')
 );
