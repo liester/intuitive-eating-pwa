@@ -4,6 +4,7 @@ import Home from "./Home";
 import MealHistory from "./MealHistory";
 import MealEntry from "./MealEntry";
 import history from './history'
+import SignUp from "./SignUp";
 
 export default function App(){
     return(
@@ -17,6 +18,9 @@ export default function App(){
                 </Route>
                 <Route exact={true} path="/meal-entry">
                     <MealEntry/>
+                </Route>
+                <Route exact={true} path="/signup">
+                    <SignUp/>
                 </Route>
             </Switch>
         </Router>

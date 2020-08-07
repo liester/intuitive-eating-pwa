@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -47,6 +47,30 @@ const useStyles = makeStyles((theme) => ({
 export default function SignUp() {
     const classes = useStyles();
 
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
+    const [user, setUser] = useState({});
+
+    const signUp = (e) => {
+        e.preventDefault();
+        const data = JSON.stringify({username, password});
+        fetch('http://localhost:3001/auth/signup',
+            {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json'},
+                body: data
+            })
+            .then(response => response.json())
+            .then(resData => {
+                setUser(resData);
+                console.log(user)
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+
+    }
+
     return (
         <Container component="main" maxWidth="xs">
             <CssBaseline />
@@ -57,7 +81,7 @@ export default function SignUp() {
                 <Typography component="h1" variant="h5">
                     Sign up
                 </Typography>
-                <form className={classes.form} noValidate>
+                <form className={classes.form} onSubmit={signUp} noValidate>
                     <Grid container spacing={2}>
                         <Grid item xs={12} sm={6}>
                             <TextField
@@ -90,6 +114,8 @@ export default function SignUp() {
                                 id="email"
                                 label="Email Address"
                                 name="email"
+                                value={username}
+                                onChange={e => setUsername(e.target.value)}
                                 autoComplete="email"
                             />
                         </Grid>
@@ -99,6 +125,8 @@ export default function SignUp() {
                                 required
                                 fullWidth
                                 name="password"
+                                value={password}
+                                onChange={e => setPassword(e.target.value)}
                                 label="Password"
                                 type="password"
                                 id="password"
