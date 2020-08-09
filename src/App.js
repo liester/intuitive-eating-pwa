@@ -6,6 +6,7 @@ import MealEntry from "./MealEntry";
 import SignUp from "./SignUp";
 import ResponsiveDrawer from "./ResponsiveDrawer";
 import LogOut from "./LogOut";
+import {setAuthorizationToken} from './axios'
 
 export default function App(){
     const [user, setUser] = useState(null)
@@ -14,6 +15,7 @@ export default function App(){
         const user = JSON.parse(localStorage.getItem('user'));
         if (user){
             setUser(user)
+            setAuthorizationToken(user.accessToken);
         }else{
             setUser(null)
         }

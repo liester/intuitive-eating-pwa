@@ -5,7 +5,7 @@ export default function LogOut({setUser}){
         localStorage.clear('user', null)
         setUser(null)
         window.location = '/'
-    }, [])
+    })
     return(
         <div>Logging Out</div>
     )

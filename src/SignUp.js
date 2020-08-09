@@ -10,7 +10,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import axios from './axios'
+import axios, {setAuthorizationToken} from './axios'
 
 function Copyright() {
     return (
@@ -58,9 +58,10 @@ export default function SignUp({setUser}) {
         e.preventDefault();
         const data = JSON.stringify({username, password});
         axios.post('/auth/signup',data)
-            .then(response => {
-                setUser(response);
-                localStorage.setItem('user', JSON.stringify(response))
+            .then(({data}) => {
+                setUser(data);
+                localStorage.setItem('user', JSON.stringify(data))
+                setAuthorizationToken(data.accessToken);
             })
             .catch((error) => {
                 console.error('Error:', error);
@@ -72,9 +73,10 @@ export default function SignUp({setUser}) {
         e.preventDefault();
         const data = JSON.stringify({username, password});
         axios.post('/auth/signin',data)
-            .then(response => {
-                setUser(response);
-                localStorage.setItem('user', JSON.stringify(response))
+            .then(({data}) => {
+                setUser(data);
+                localStorage.setItem('user', JSON.stringify(data))
+                setAuthorizationToken(data.accessToken);
             })
             .catch((error) => {
                 console.error('Error:', error);

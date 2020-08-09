@@ -2,6 +2,7 @@ import React from 'react'
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Box from "@material-ui/core/Box";
+import axios from './axios'
 
 export default function MealEntry(){
     const handleInputChange = e => {
@@ -41,7 +42,7 @@ export default function MealEntry(){
                 title="Save Meal"
                 onClick={() => {
                     console.log(JSON.stringify({...values}))
-                    // axios.post('/meals', {...values, time: date.toISOString()})
+                    axios.post('/meals', {...values, time: new Date().toISOString()})
                 }}
             >Save</Button>
         </Box>
