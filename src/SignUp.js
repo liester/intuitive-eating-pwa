@@ -10,8 +10,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-
-const baseUrl = process.env.REACT_APP_API_URL;
+import axios from './axios'
 
 function Copyright() {
     return (
@@ -47,7 +46,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function SignUp({setUser}) {
-    console.log(JSON.stringify(process.env))
     const classes = useStyles();
 
     const [username, setUsername] = useState("");
@@ -58,22 +56,10 @@ export default function SignUp({setUser}) {
     const signUp = (e) => {
         e.preventDefault();
         const data = JSON.stringify({username, password});
-        fetch(`${baseUrl}/auth/signup`,
-            {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json'},
-                body: data
-            })
+        axios.post('/auth/signup',data)
             .then(response => {
-                if(response.ok){
-                    return response.json()
-                }else {
-                    throw Error(`That did not compute`)
-                }
-            })
-            .then(resData => {
-                setUser(resData);
-                localStorage.setItem('user', JSON.stringify(resData))
+                setUser(response);
+                localStorage.setItem('user', JSON.stringify(response))
             })
             .catch((error) => {
                 console.error('Error:', error);
@@ -84,22 +70,10 @@ export default function SignUp({setUser}) {
     const signIn = (e) => {
         e.preventDefault();
         const data = JSON.stringify({username, password});
-        fetch(`${baseUrl}/auth/signin`,
-            {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json'},
-                body: data
-            })
+        axios.post('/auth/signin',data)
             .then(response => {
-                if(response.ok){
-                    return response.json()
-                }else {
-                    throw Error('Invalid credentials')
-                }
-            })
-            .then(resData => {
-                setUser(resData);
-                localStorage.setItem('user', JSON.stringify(resData))
+                setUser(response);
+                localStorage.setItem('user', JSON.stringify(response))
             })
             .catch((error) => {
                 console.error('Error:', error);
