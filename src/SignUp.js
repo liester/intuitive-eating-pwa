@@ -44,12 +44,13 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function SignUp() {
+export default function SignUp({setUser}) {
     const classes = useStyles();
 
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-    const [user, setUser] = useState({});
+
+    const [signInPage, setSignInPage] = useState(true)
 
     const signUp = (e) => {
         e.preventDefault();
@@ -60,10 +61,42 @@ export default function SignUp() {
                 headers: { 'Content-Type': 'application/json'},
                 body: data
             })
-            .then(response => response.json())
+            .then(response => {
+                if(response.ok){
+                    return response.json()
+                }else {
+                    throw Error(`That did not compute`)
+                }
+            })
             .then(resData => {
                 setUser(resData);
-                console.log(user)
+                localStorage.setItem('user', JSON.stringify(resData))
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+
+    }
+
+    const signIn = (e) => {
+        e.preventDefault();
+        const data = JSON.stringify({username, password});
+        fetch('http://localhost:3001/auth/signin',
+            {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json'},
+                body: data
+            })
+            .then(response => {
+                if(response.ok){
+                    return response.json()
+                }else {
+                    throw Error('Invalid credentials')
+                }
+            })
+            .then(resData => {
+                setUser(resData);
+                localStorage.setItem('user', JSON.stringify(resData))
             })
             .catch((error) => {
                 console.error('Error:', error);
@@ -74,84 +107,144 @@ export default function SignUp() {
     return (
         <Container component="main" maxWidth="xs">
             <CssBaseline />
-            <div className={classes.paper}>
-                <Avatar className={classes.avatar}>
-                    <LockOutlinedIcon />
-                </Avatar>
-                <Typography component="h1" variant="h5">
-                    Sign up
-                </Typography>
-                <form className={classes.form} onSubmit={signUp} noValidate>
-                    <Grid container spacing={2}>
-                        <Grid item xs={12} sm={6}>
-                            <TextField
-                                autoComplete="fname"
-                                name="firstName"
-                                variant="outlined"
-                                required
-                                fullWidth
-                                id="firstName"
-                                label="First Name"
-                                autoFocus
-                            />
+            <div>{JSON.stringify(signIn)}</div>
+            {signInPage?
+                <div className={classes.paper}>
+                    <Avatar className={classes.avatar}>
+                        <LockOutlinedIcon />
+                    </Avatar>
+                    <Typography component="h1" variant="h5">
+                        Sign In
+                    </Typography>
+                    <form className={classes.form} onSubmit={signIn} noValidate>
+                        <Grid container spacing={2}>
+                            <Grid item xs={12}>
+                                <TextField
+                                    variant="outlined"
+                                    required
+                                    fullWidth
+                                    id="email"
+                                    label="User Name"
+                                    name="email"
+                                    value={username}
+                                    onChange={e => setUsername(e.target.value)}
+                                    autoComplete="email"
+                                />
+                            </Grid>
+                            <Grid item xs={12}>
+                                <TextField
+                                    variant="outlined"
+                                    required
+                                    fullWidth
+                                    name="password"
+                                    value={password}
+                                    onChange={e => setPassword(e.target.value)}
+                                    label="Password"
+                                    type="password"
+                                    id="password"
+                                    autoComplete="current-password"
+                                />
+                            </Grid>
                         </Grid>
-                        <Grid item xs={12} sm={6}>
-                            <TextField
-                                variant="outlined"
-                                required
-                                fullWidth
-                                id="lastName"
-                                label="Last Name"
-                                name="lastName"
-                                autoComplete="lname"
-                            />
+                        <Button
+                            type="submit"
+                            fullWidth
+                            variant="contained"
+                            color="primary"
+                            className={classes.submit}
+                        >
+                            Sign In
+                        </Button>
+                        <Grid container justify="flex-end">
+                            <Grid item>
+                                <Link href="#" variant="body2" onClick={()=> {
+                                    setSignInPage(false)
+                                }}>
+                                   No account? Sign Up
+                                </Link>
+                            </Grid>
                         </Grid>
-                        <Grid item xs={12}>
-                            <TextField
-                                variant="outlined"
-                                required
-                                fullWidth
-                                id="email"
-                                label="Email Address"
-                                name="email"
-                                value={username}
-                                onChange={e => setUsername(e.target.value)}
-                                autoComplete="email"
-                            />
+                    </form>
+                </div>
+                :
+                <div className={classes.paper}>
+                    <Avatar className={classes.avatar}>
+                        <LockOutlinedIcon />
+                    </Avatar>
+                    <Typography component="h1" variant="h5">
+                        Sign up
+                    </Typography>
+                    <form className={classes.form} onSubmit={signUp} noValidate>
+                        <Grid container spacing={2}>
+                            <Grid item xs={12} sm={6}>
+                                <TextField
+                                    autoComplete="fname"
+                                    name="firstName"
+                                    variant="outlined"
+                                    required
+                                    fullWidth
+                                    id="firstName"
+                                    label="First Name"
+                                    autoFocus
+                                />
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
+                                <TextField
+                                    variant="outlined"
+                                    required
+                                    fullWidth
+                                    id="lastName"
+                                    label="Last Name"
+                                    name="lastName"
+                                    autoComplete="lname"
+                                />
+                            </Grid>
+                            <Grid item xs={12}>
+                                <TextField
+                                    variant="outlined"
+                                    required
+                                    fullWidth
+                                    id="email"
+                                    label="Email Address"
+                                    name="email"
+                                    value={username}
+                                    onChange={e => setUsername(e.target.value)}
+                                    autoComplete="email"
+                                />
+                            </Grid>
+                            <Grid item xs={12}>
+                                <TextField
+                                    variant="outlined"
+                                    required
+                                    fullWidth
+                                    name="password"
+                                    value={password}
+                                    onChange={e => setPassword(e.target.value)}
+                                    label="Password"
+                                    type="password"
+                                    id="password"
+                                    autoComplete="current-password"
+                                />
+                            </Grid>
                         </Grid>
-                        <Grid item xs={12}>
-                            <TextField
-                                variant="outlined"
-                                required
-                                fullWidth
-                                name="password"
-                                value={password}
-                                onChange={e => setPassword(e.target.value)}
-                                label="Password"
-                                type="password"
-                                id="password"
-                                autoComplete="current-password"
-                            />
+                        <Button
+                            type="submit"
+                            fullWidth
+                            variant="contained"
+                            color="primary"
+                            className={classes.submit}
+                        >
+                            Sign Up
+                        </Button>
+                        <Grid container justify="flex-end">
+                            <Grid item>
+                                <Link href="#" variant="body2" onClick={()=> setSignInPage(true)}>
+                                    Already have an account? Sign in
+                                </Link>
+                            </Grid>
                         </Grid>
-                    </Grid>
-                    <Button
-                        type="submit"
-                        fullWidth
-                        variant="contained"
-                        color="primary"
-                        className={classes.submit}
-                    >
-                        Sign Up
-                    </Button>
-                    <Grid container justify="flex-end">
-                        <Grid item>
-                            <Link href="#" variant="body2">
-                                Already have an account? Sign in
-                            </Link>
-                        </Grid>
-                    </Grid>
-                </form>
-            </div>
+                    </form>
+                </div>}
             <Box mt={5}>
                 <Copyright />
             </Box>

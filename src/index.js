@@ -1,17 +1,14 @@
-import React from 'react';
+import React, {useState} from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
 
 import './base-style.css'
-import SignUp from "./SignUp";
 import App from "./App";
-
-const user = {}
 
 ReactDOM.render(
     <React.StrictMode>
-        {user?<App/>:<SignUp/> }
+        <App/>
     </React.StrictMode>,
     document.getElementById('root')
 );

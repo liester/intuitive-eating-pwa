@@ -2,7 +2,6 @@ import React from 'react'
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Box from "@material-ui/core/Box";
-import {Grid} from "@material-ui/core";
 
 export default function MealEntry(){
     const handleInputChange = e => {
