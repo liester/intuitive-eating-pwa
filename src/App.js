@@ -29,7 +29,7 @@ export default function App(){
                             <Home/>
                         </Route>
                         <Route exact={true} path="/meal-history">
-                            <MealHistory/>
+                            <MealHistory user={user} />
                         </Route>
                         <Route exact={true} path="/meal-entry">
                             <MealEntry/>

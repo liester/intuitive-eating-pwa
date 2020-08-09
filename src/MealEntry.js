@@ -42,7 +42,14 @@ export default function MealEntry(){
                 title="Save Meal"
                 onClick={() => {
                     console.log(JSON.stringify({...values}))
-                    axios.post('/meals', {...values, time: new Date().toISOString()})
+                    const data = JSON.stringify({...values, time: new Date().toISOString()});
+                    fetch('http://localhost:3001/meals',
+                        {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json'},
+                            body: data
+                        })
+                        .catch(error => console.log('Error:', error));
                 }}
             >Save</Button>
         </Box>
