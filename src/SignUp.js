@@ -11,6 +11,8 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 
+const baseUrl = process.env.REACT_APP_API_URL;
+
 function Copyright() {
     return (
         <Typography variant="body2" color="textSecondary" align="center">
@@ -45,6 +47,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function SignUp({setUser}) {
+    console.log(JSON.stringify(process.env))
     const classes = useStyles();
 
     const [username, setUsername] = useState("");
@@ -55,7 +58,7 @@ export default function SignUp({setUser}) {
     const signUp = (e) => {
         e.preventDefault();
         const data = JSON.stringify({username, password});
-        fetch('http://localhost:3001/auth/signup',
+        fetch(`${baseUrl}/auth/signup`,
             {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json'},
@@ -81,7 +84,7 @@ export default function SignUp({setUser}) {
     const signIn = (e) => {
         e.preventDefault();
         const data = JSON.stringify({username, password});
-        fetch('http://localhost:3001/auth/signin',
+        fetch(`${baseUrl}/auth/signin`,
             {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json'},
