@@ -3,7 +3,7 @@ import axios from 'axios'
 const localStorageAccessToken = (JSON.parse(localStorage.getItem("user")) || {}).accessToken
 
 const instance = axios.create({
-    baseURL: process.env.REACT_APP_BASE_URL,
+    baseURL: process.env.REACT_APP_API_URL,
     timeout: 1000,
     headers: {'Authorization': localStorageAccessToken, 'Content-Type': 'application/json'}
 });
