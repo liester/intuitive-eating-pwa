@@ -52,6 +52,8 @@ export default function SignUp({setUser}) {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
 
+    const [error, setError] = useState()
+
     const [signInPage, setSignInPage] = useState(true)
 
     const signUp = (e) => {
@@ -65,6 +67,7 @@ export default function SignUp({setUser}) {
             })
             .catch((error) => {
                 console.error('Error:', error);
+                setError(error)
             });
 
     }
@@ -80,6 +83,7 @@ export default function SignUp({setUser}) {
             })
             .catch((error) => {
                 console.error('Error:', error);
+                setError(error)
             });
 
     }
@@ -156,29 +160,6 @@ export default function SignUp({setUser}) {
                     </Typography>
                     <form className={classes.form} onSubmit={signUp} noValidate>
                         <Grid container spacing={2}>
-                            {/*<Grid item xs={12} sm={6}>*/}
-                            {/*    <TextField*/}
-                            {/*        autoComplete="fname"*/}
-                            {/*        name="firstName"*/}
-                            {/*        variant="outlined"*/}
-                            {/*        required*/}
-                            {/*        fullWidth*/}
-                            {/*        id="firstName"*/}
-                            {/*        label="First Name"*/}
-                            {/*        autoFocus*/}
-                            {/*    />*/}
-                            {/*</Grid>*/}
-                            {/*<Grid item xs={12} sm={6}>*/}
-                            {/*    <TextField*/}
-                            {/*        variant="outlined"*/}
-                            {/*        required*/}
-                            {/*        fullWidth*/}
-                            {/*        id="lastName"*/}
-                            {/*        label="Last Name"*/}
-                            {/*        name="lastName"*/}
-                            {/*        autoComplete="lname"*/}
-                            {/*    />*/}
-                            {/*</Grid>*/}
                             <Grid item xs={12}>
                                 <TextField
                                     variant="outlined"
@@ -228,6 +209,7 @@ export default function SignUp({setUser}) {
             <Box mt={5}>
                 <Copyright />
             </Box>
+            {error && <div style={{color: 'red'}}>{JSON.stringify(error.message)}</div>}
         </Container>
     );
 }

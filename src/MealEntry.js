@@ -40,7 +40,7 @@ export default function MealEntry(){
                         .catch(e=> setError(e))
                 }}
             >Save</Button>
-            {error && <div style={{color: 'red'}}>{JSON.stringify(error)}</div>}
+            {error && <div style={{color: 'red'}}>{JSON.stringify(error.message)}</div>}
         </Box>
     )
 }
