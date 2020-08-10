@@ -35,21 +35,15 @@ export default function MealEntry(){
             <div>How are you feeling?</div>
             <TextField name={`feeling`} onChange={handleInputChange}/>
             <div>What is your digestion like?</div>
-            <TextField name={`digestion`}onChange={handleInputChange}/>
+            <TextField name={`digestion`} onChange={handleInputChange}/>
             <div>How is your mood?</div>
             <TextField name={`mood`}  onChange={handleInputChange}/>
             <Button
                 title="Save Meal"
                 onClick={() => {
                     console.log(JSON.stringify({...values}))
-                    const data = JSON.stringify({...values, time: new Date().toISOString()});
-                    fetch('http://localhost:3001/meals',
-                        {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/json'},
-                            body: data
-                        })
-                        .catch(error => console.log('Error:', error));
+                    axios.post('/meals', {...values, time: new Date().toISOString()})
+                        .catch(e=> console.log(e))
                 }}
             >Save</Button>
         </Box>
