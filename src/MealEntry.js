@@ -9,43 +9,38 @@ export default function MealEntry(){
         const {name, value} = e.target
         setValues({...values, [name]: value})
     }
-    const [values, setValues] = React.useState({
-        "time": "1:00pm",
-        "hungerRatingBefore": "110",
-        "whatDidYouEat": "Pizza",
-        "whatDidYouDrink": "Water",
-        "satietyRatingAfter": "9",
-        "thinking": "I love pizza.",
-        "feeling": "I ate just the right amount.",
-        "digestion": "Maybe too much hot sauce",
-        "mood": "Great"
-    });
+
+    const [error, setError] = React.useState()
+    const [values, setValues] = React.useState({});
     return(
         <Box display={'flex'} flexDirection={'column'}>
-            <div>Hunger rating before eating?</div>
-            <TextField name={`hungerRatingBefore`} onChange={handleInputChange}/>
+            <div>Hunger rating before eating? (1-10)</div>
+            <TextField name={`hungerRatingBefore`} fullWidth type="number" onChange={handleInputChange}/>
             <div>What did you eat?</div>
-            <TextField name={`whatDidYouEat`} onChange={handleInputChange}/>
+            <TextField name={`whatDidYouEat`} fullWidth multiline  onChange={handleInputChange}/>
             <div>What did you drink?</div>
-            <TextField name={`whatDidYouDrink`}  onChange={handleInputChange}/>
-            <div>Satiety rating after?</div>
-            <TextField name={`satietyRatingAfter`} onChange={handleInputChange}/>
+            <TextField name={`whatDidYouDrink`} fullWidth multiline   onChange={handleInputChange}/>
+            <div>Satiety rating after? (1-10)</div>
+            <TextField name={`satietyRatingAfter`} fullWidth type="number" onChange={handleInputChange}/>
             <div>Current thoughts?</div>
-            <TextField name={`thinking`} onChange={handleInputChange}/>
+            <TextField name={`thinking`} fullWidth multiline  onChange={handleInputChange}/>
             <div>How are you feeling?</div>
-            <TextField name={`feeling`} onChange={handleInputChange}/>
+            <TextField name={`feeling`} fullWidth multiline  onChange={handleInputChange}/>
             <div>What is your digestion like?</div>
-            <TextField name={`digestion`} onChange={handleInputChange}/>
-            <div>How is your mood?</div>
-            <TextField name={`mood`}  onChange={handleInputChange}/>
+            <TextField name={`digestion`} fullWidth multiline  onChange={handleInputChange}/>
+            <div>How would you rate your mood? (1-10)</div>
+            <TextField name={`mood`} fullWidth multiline  type="number" onChange={handleInputChange}/>
             <Button
+                disabled={Object.keys(values).length === 0}
                 title="Save Meal"
+                variant="contained" color="primary"
                 onClick={() => {
                     console.log(JSON.stringify({...values}))
                     axios.post('/meals', {...values, time: new Date().toISOString()})
-                        .catch(e=> console.log(e))
+                        .catch(e=> setError(e))
                 }}
             >Save</Button>
+            {error && <div style={{color: 'red'}}>{JSON.stringify(error)}</div>}
         </Box>
     )
 }
