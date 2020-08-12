@@ -7,6 +7,7 @@ import SignUp from "./SignUp";
 import ResponsiveDrawer from "./ResponsiveDrawer";
 import LogOut from "./LogOut";
 import {setAuthorizationToken} from './axios'
+import Insights from "./Insights";
 
 export default function App(){
     const [user, setUser] = useState(null)
@@ -36,6 +37,9 @@ export default function App(){
                         </Route>
                         <Route exact={true} path="/log-out">
                             <LogOut setUser={setUser}/>
+                        </Route>
+                        <Route exact={true} path="/insights">
+                            <Insights user={user} />
                         </Route>
                     </Switch>
                 </ResponsiveDrawer>

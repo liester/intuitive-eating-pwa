@@ -13,6 +13,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ExitToApp from '@material-ui/icons/ExitToApp'
 import Restaurant from '@material-ui/icons/Restaurant';
 import MenuBook from '@material-ui/icons/MenuBook';
+import EmojiObjectsOutlinedIcon from '@material-ui/icons/EmojiObjectsOutlined';
 import MenuIcon from '@material-ui/icons/Menu';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -65,6 +66,11 @@ const menuItems = [
         link: '/meal-history',
         name: 'Meal History',
         Icon: <MenuBook/>
+    },
+    {
+        link: '/insights',
+        name: 'Insights',
+        Icon: <EmojiObjectsOutlinedIcon/>
     },
     {
         link: '/log-out',
