@@ -39,10 +39,10 @@ export default function MealEntry() {
                 title="Save Meal"
                 variant="contained" color="primary"
                 onClick={() => {
-                    console.log(JSON.stringify({...values, time: new Date().toISOString()}))
-                    // axios.post('/meals', {...values, time: new Date().toISOString()})
-                    //     .then(() => setValues(initialFormState))
-                    //     .catch(e => setError(e))
+                    // console.log(JSON.stringify({...values, time: new Date().toISOString()}))
+                    axios.post('/meals', {...values, time: new Date().toISOString()})
+                        .then(() => setValues(initialFormState))
+                        .catch(e => setError(e))
                 }}
             >Save</Button>
             {error && <div style={{color: 'red'}}>{JSON.stringify(error.message)}</div>}
