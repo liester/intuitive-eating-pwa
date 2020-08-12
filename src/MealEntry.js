@@ -42,10 +42,16 @@ export default function MealEntry() {
                     // console.log(JSON.stringify({...values, time: new Date().toISOString()}))
                     axios.post('/meals', {...values, time: new Date().toISOString()})
                         .then(() => setValues(initialFormState))
-                        .catch(e => setError(e))
+                        .catch(e => {
+                            try{
+                                e.response.data.message && setError(e.response.data.message)
+                            }catch{
+                                setError(e)
+                            }
+                        })
                 }}
             >Save</Button>
-            {error && <div style={{color: 'red'}}>{JSON.stringify(error.message)}</div>}
+            {error && <div style={{color: 'red'}}>{JSON.stringify(error)}</div>}
         </Box>
     )
 }
