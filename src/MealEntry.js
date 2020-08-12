@@ -32,7 +32,7 @@ export default function MealEntry() {
             <TextField label={"Current thoughts?"} name={`thinking`} value={values["thinking"]} fullWidth multiline onChange={handleInputChange("thinking")}/>
             <TextField label={"How are you feeling?"} name={`feeling`} value={values["feeling"]} fullWidth multiline onChange={handleInputChange("feeling")}/>
             <TextField label={"What is your digestion like?"} name={`digestion`} value={values["digestion"]} fullWidth multiline onChange={handleInputChange("digestion")}/>
-            <TextField label={"How would you rate your mood? (1-10)"} name={`mood`} inputProps={{ min: 1, max: 10}} value={values["mood"]} fullWidth multiline type="number" onChange={handleInputChange("mood")}/>
+            <TextField label={"How would you rate your mood? (1-10)"} name={`mood`} inputProps={{ min: 1, max: 10}} value={values["mood"]} fullWidth type="number" onChange={handleInputChange("mood")}/>
             <Button
                 disabled={Object.keys(values).length === 0}
                 title="Save Meal"
