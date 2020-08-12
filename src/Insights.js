@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useRef, useState} from 'react'
 import Box from "@material-ui/core/Box";
 import {
     LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend,
@@ -46,17 +46,18 @@ export default function Insights(){
     useEffect(()=>{
         const graphData = meals.map(meal => {
             return {
-                name: moment(meal.time).format('MM/DD'),
+                name: moment(meal.time).format('MM/DD h:mm'),
                 "Hunger Rating Before": meal.hungerRatingBefore,
                 "Mood": meal.mood
             }
         })
         setData(graphData)
     }, [meals])
+    const pageRef = useRef()
     return(
-        <Box display={'flex'} flexDirection={'column'} alignItems={'center'} justifyContent={'center'}>
+        <Box ref={pageRef} display={'flex'} flexDirection={'column'} alignItems={'center'} justifyContent={'center'}>
             <LineChart
-                width={500}
+                width={(pageRef.current && pageRef.current.offsetWidth) || '500'}
                 height={300}
                 data={data}
                 margin={{
