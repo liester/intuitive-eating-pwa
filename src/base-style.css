@@ -7,10 +7,11 @@ a {
 }
 
 .meal-item{
-    border: solid #3f51b5 3px;
     border-radius: 5px;
     padding: 10px;
     margin-bottom: 10px;
+    box-shadow: 3px 3px 5px 2px #ccc;
+
 }
 
 .meal-time {
