@@ -46,7 +46,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function SignUp({setUser}) {
-    console.log(process.env.REACT_APP_API_URL)
     const classes = useStyles();
 
     const [username, setUsername] = useState("");

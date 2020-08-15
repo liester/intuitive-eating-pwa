@@ -2,7 +2,7 @@ import React, {useEffect} from 'react'
 
 export default function LogOut({setUser}){
     useEffect(()=>{
-        localStorage.clear('user', null)
+        localStorage.setItem('user', null)
         setUser(null)
         window.location = '/'
     })

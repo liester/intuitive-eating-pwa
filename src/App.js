@@ -12,6 +12,19 @@ import Insights from "./Insights";
 export default function App(){
     const [user, setUser] = useState(null)
 
+    const clearUser = ()=>{
+        setUser(null)
+        localStorage.setItem('user', null)
+    }
+
+    useEffect(()=>{
+        document.addEventListener('unauthorized', clearUser);
+        return ()=>{
+            document.removeEventListener('unauthorized',clearUser)
+        }
+
+    })
+
     useEffect(()=>{
         const user = JSON.parse(localStorage.getItem('user'));
         if (user){
