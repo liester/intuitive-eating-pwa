@@ -6,30 +6,6 @@ import {
 import instance from "./axios";
 import moment from 'moment'
 
-// const data = [
-//     {
-//         name: 'Page A', uv: 1, pv: 2400,
-//     },
-//     {
-//         name: 'Page B', uv: 3000, pv: 1398,
-//     },
-//     {
-//         name: 'Page C', uv: 2000, pv: 9800,
-//     },
-//     {
-//         name: 'Page D', uv: 2780, pv: 3908,
-//     },
-//     {
-//         name: 'Page E', uv: 1890, pv: 4800,
-//     },
-//     {
-//         name: 'Page F', uv: 2390, pv: 3800,
-//     },
-//     {
-//         name: 'Page G', uv: 3490, pv: 4300,
-//     },
-// ];
-
 export default function Insights(){
     const [meals, setMeals] = useState([]);
     const [data, setData] = useState([]);
@@ -57,7 +33,7 @@ export default function Insights(){
     return(
         <Box ref={pageRef} display={'flex'} flexDirection={'column'} alignItems={'center'} justifyContent={'center'}>
             <LineChart
-                width={(pageRef.current && pageRef.current.offsetWidth) || '500'}
+                width={(pageRef.current && pageRef.current.offsetWidth)}
                 height={300}
                 data={data}
                 margin={{
