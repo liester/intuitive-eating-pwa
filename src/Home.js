@@ -5,12 +5,12 @@ import {Link} from "react-router-dom";
 
 export default function Home(){
     return(
-        <Box display={'flex'} flexDirection={'column'} alignItems={'center'} justifyContent={'center'}>
+        <Box display={'flex'} flexDirection={'column'} alignItems={'center'} justifyContent={'space-around'} className={"homeContent"}>
             <Link to={'/meal-entry'}>
-                <Button variant="contained" color="primary">Enter Meal</Button>
+                <Button variant="contained" size="large" color="primary">Enter Meal</Button>
             </Link>
             <Link to={'/meal-history'}>
-                <Button variant="contained" color="primary">View Meal History</Button>
+                <Button variant="contained" size="large" color="primary">View Meal History</Button>
             </Link>
         </Box>
     )
